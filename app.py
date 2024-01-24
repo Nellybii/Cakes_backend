@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_migrate import Migrate
 from flask_restful import Api
+from flask_bcrypt import Bcrypt
 from models import db 
 from Routes.Address_res import AddressesResource, AddressResource
 from Routes.CartItem__res import ShoppingCartItemResource, ShoppingCartItemsResource
@@ -8,11 +9,13 @@ from Routes.ProductCategory import ProductCategoryResource
 from Routes.Product_res import ProductResource
 from Routes.Order_res import OrderResource
 from Routes.ShoppingCart_res import ShoppingCartResource
+from Routes.Users_resource import SignupResource, LoginResource
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+bcrypt = Bcrypt(app)
 db.init_app(app)
 migrate = Migrate(app, db)
 api = Api(app)
@@ -27,6 +30,8 @@ api.add_resource(ProductCategoryResource, '/product_categories')
 api.add_resource(ProductResource, '/products', '/products/<int:id>')
 api.add_resource(OrderResource, '/orders', '/orders/<int:id>')
 api.add_resource(ShoppingCartResource, '/carts', '/carts/<int:id>')
+api.add_resource(SignupResource, '/users')
+api.add_resource(LoginResource, '/login')
 
 if __name__ == '__main__':
     app.run(port=5555)
