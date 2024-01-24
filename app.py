@@ -2,6 +2,9 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_restful import Api
 from models import db 
+from Routes.Product_res import ProductResource
+from Routes.Order_res import OrderResource
+from Routes.ShoppingCart_res import ShoppingCartResource
 
 
 app=Flask(__name__)
@@ -12,10 +15,10 @@ db.init_app(app)
 migrate=Migrate(app, db)
 api=Api(app)
 
-@app.route('/')
-def index():
-    return "Hello World!"
 
+api.add_resource(ProductResource, '/products', '/products/<int:id>')
+api.add_resource(OrderResource, '/orders', '/orders/<int:id>')
+api.add_resource(ShoppingCartResource, '/carts', '/carts/<int:id>')
 
 if __name__=='__main__':
     app.run(port=5555)
