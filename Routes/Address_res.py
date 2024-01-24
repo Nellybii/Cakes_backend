@@ -3,7 +3,7 @@ from flask_restful import Resource
 from models import db, Address, User
 
 
-class AddressResource(Resource):
+class AddressesResource(Resource):
     def get(self):
         addresses = Address.query.all()
         address_data = [
@@ -18,7 +18,6 @@ class AddressResource(Resource):
             for address in addresses
         ]
         return address_data
-
 
     def post(self):
         data = request.get_json()
@@ -62,7 +61,7 @@ class AddressResource(Resource):
             "user_id": address.user_id
         }
 
-
+class AddressResource(Resource):
     def get(self, address_id):
         address = Address.query.get(address_id)
 
