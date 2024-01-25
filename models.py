@@ -13,8 +13,7 @@ class User(db.Model):
      #timestamp
     created_at = db.Column(db.DateTime(timezone=True), nullable=False)
 
-    # relationships
-    addresses = db.relationship('Address', backref='user', lazy=True)
+   
     
    
     def __repr__(self):
@@ -26,8 +25,8 @@ class User(db.Model):
 class Address(db.Model):
     __tablename__ ="address"
     id= db.Column(db.Integer, primary_key=True)
-    Street_name=db.Column(db.String(25), nullable=False)
-    Street_number=db.Column(db.Integer, nullable=False)
+    street_name=db.Column(db.String(25), nullable=False)
+    street_number=db.Column(db.Integer, nullable=False)
     region= db.Column(db.String(25), nullable=False)
     county= db.Column(db.String(25), nullable=False)
     # relationships
@@ -39,8 +38,8 @@ class Address(db.Model):
 
  
 
-#     def __repr__(self):
-#         return f"{self.Street_name}, {self.Street_number}>, {self.region},{self.county}>"
+    def __repr__(self):
+        return f"{self.Street_name}, {self.Street_number}>, {self.region},{self.county}>"
     
 
 # # Products
