@@ -4,7 +4,7 @@ from flask_migrate import Migrate
 from flask_restful import  Api
 from models import db 
 
-from routes.user import Register
+from routes.user import Register,Login
 
 app=Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///app.db'
@@ -16,6 +16,7 @@ migrate=Migrate(app, db)
 bcrypt = Bcrypt()
 
 api.add_resource(Register, '/register')
+api.add_resource(Login, '/log')
 
 if __name__=='__main__':
-    app.run(port=5555)
+    app.run(debug=True ,port=5555)

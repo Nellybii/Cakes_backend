@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func
 
 db=SQLAlchemy()
 
@@ -11,14 +12,11 @@ class User(db.Model):
     phone=db.Column(db.String(25), nullable=False, unique=True)
     password= db.Column(db.String(100), nullable=False)
      #timestamp
-    created_at = db.Column(db.DateTime(timezone=True), nullable=False)
-
-   
-    
+    created_at = db.Column(db.TIMESTAMP, server_default=db.func.now() ,default=func.now())
    
     def __repr__(self):
         return f"<User{self.username}, {self.email}>, {self.phone}"
-    
+
 
 # A user can have many addresses
 # An address can have many users
@@ -35,14 +33,11 @@ class Address(db.Model):
     # relationships
     users = db.relationship('User', backref='address', lazy=True)
     #Multiple users can have the same address
-
- 
-
     def __repr__(self):
         return f"{self.Street_name}, {self.Street_number}>, {self.region},{self.county}>"
     
 
-# # Products
+# Products
 # class Product(db.Model):
 #     __tablename__ ="product"
 #     id= db.Column(db.Integer, primary_key=True)
