@@ -19,4 +19,4 @@ api.add_resource(Register, '/register')
 api.add_resource(Login, '/log')
 
 if __name__=='__main__':
-    app.run(debug=True ,port=5555)
+    app.run(debug=True)
